@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Practica2</string>
+    <array name="questions1">
+        <item>¿Quién escribió Crónica de una Muerte Anunciada?;Federico García Lorca;Gabriel García Márquez;William Shakespeare;Marco Tulio Cicerón</item>
+        <item>¿Cuál de estas sagas no es de Nintendo?;Devil May Cry;The Legend of Zelda;Fire Emblem;Metroid</item>
+        <item>¿Cuál de estas películas no es de Quentin Tarantino?;Malditos Bastardos;Kill Bill;El Club de la Lucha;Pulp Fiction</item>
+    </array>
+    <array name="questionsMeme">
+        <item>¿Cuál es el mejor personaje de Doki Doki Literature Club?;Natsuki;Yuri;Sayori;Just Monika.</item>
+        <item>¿Qué tienen en común los ogros y las cebollas?;Apestan;Te hacen llorar;Tienen capas;Son como las tartas</item>
+    </array>
 </resources>

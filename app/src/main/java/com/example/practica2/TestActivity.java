@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.MediaController;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -23,6 +24,12 @@ public class TestActivity extends AppCompatActivity {
 
         createAudio();
         createVideo();
+
+    }
+
+    protected void onResume(){
+        super.onResume();
+        showRandomQuestion(R.array.questions1);
     }
 
     public void createAudio(){
@@ -43,6 +50,15 @@ public class TestActivity extends AppCompatActivity {
         videoShrek.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.shrek_cebollas));
         videoShrek.setMediaController(new MediaController(this));
         videoShrek.requestFocus();
+    }
+
+    public void showRandomQuestion(int setId){
+        TextView textQuestion = findViewById(R.id.Question);
+        String[] setQuestions = getResources().getStringArray(setId);
+        int random = (int) Math.round(Math.random() * (setQuestions.length - 1));
+        String randomQuestion = setQuestions[random];
+        String[] parts = randomQuestion.split(";");
+        textQuestion.setText(parts[0]);
     }
 
 }
