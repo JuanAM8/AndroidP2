@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final Button testButton = findViewById(R.id.buttonRecords);
+        final Button testButton = findViewById(R.id.buttonStart);
         testButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 launch(v);
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void launch(View view){
-        Intent i = new Intent(this, TestActivity.class);
+        Intent i = new Intent(this, QuizActivity.class);
         startActivity(i);
     }
 /*

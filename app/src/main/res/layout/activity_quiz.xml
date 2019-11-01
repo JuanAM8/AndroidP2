@@ -7,43 +7,93 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="207dp"
-        android:layout_height="45dp"
+        android:id="@+id/questionText"
+        android:layout_width="298dp"
+        android:layout_height="112dp"
         android:text="Pantalla de Inicio"
         android:textSize="60px"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <VideoView
+        android:id="@+id/video"
+        android:layout_width="287dp"
+        android:layout_height="273dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.419"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.399" />
+        app:layout_constraintVertical_bias="0.085" />
 
     <Button
-        android:id="@+id/buttonStart"
-        android:layout_width="500px"
-        android:layout_height="100px"
-        android:layout_marginEnd="136dp"
-        android:layout_marginRight="136dp"
-        android:layout_marginBottom="428dp"
-        android:text="Comenzar Juego"
+        android:id="@+id/audioButton"
+        android:layout_width="234dp"
+        android:layout_height="142dp"
+        android:layout_marginBottom="472dp"
+        android:text="Audio"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.429"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.0"></Button>
-
-    <Button
-        android:id="@+id/buttonConfig"
-        android:layout_width="500px"
-        android:layout_height="100px"
-        android:layout_marginBottom="272dp"
-        android:text="Configuracion"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.416"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonStart"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"></Button>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image"
+        android:layout_width="200dp"
+        android:layout_height="138dp"
+        android:layout_gravity="center"
+        android:src="@drawable/no_img"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.431"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.197" />
+
+    <RadioGroup
+        android:id="@+id/questionRadio"
+        android:layout_width="match_parent"
+        android:layout_height="178dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.795"
+        tools:layout_editor_absoluteX="0dp">
+
+        <RadioButton
+            android:id="@+id/radio_R1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="1" />
+
+        <RadioButton
+            android:id="@+id/radio_R2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="2" />
+
+        <RadioButton
+            android:id="@+id/radio_R3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="3" />
+
+        <RadioButton
+            android:id="@+id/radio_R4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="4" />
+
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
