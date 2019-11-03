@@ -3,6 +3,7 @@ package com.example.practica2;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,7 +22,7 @@ import java.util.Stack;
 //TODO:Arreglar peso videos y musica
 //TODO:Resto de pantallas y transiciones (seleccionar set)
 //TODO:Almacenamiento persistente
-//TODO:Estetica y cronometro
+//TODO:Estetica
 //TODO:Desafios plata y oro
 //TODO:Cambiar xml a base de datos
 public class QuizActivity extends AppCompatActivity {
@@ -38,6 +39,7 @@ public class QuizActivity extends AppCompatActivity {
     protected Button buttonConfirm;
     protected MediaPlayer mediaPlayer;
     protected TextView scoreText;
+    protected TextView timerText;
 
     protected Stack<String> currentQuestionStack = new Stack<>();
 
@@ -51,6 +53,11 @@ public class QuizActivity extends AppCompatActivity {
     protected int currentQuestionCount = 1;
     protected int totalQuestions;
 
+    protected Thread timerThread;
+    protected boolean timerOn;
+    Handler timerUIHandler = new Handler();
+    protected int timerSecs = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +68,7 @@ public class QuizActivity extends AppCompatActivity {
         image = findViewById(R.id.image);
         questionText = findViewById(R.id.questionText);
         scoreText = findViewById(R.id.scoreText);
+        timerText = findViewById(R.id.timer);
         questionRadio = findViewById(R.id.questionRadio);
         button1 = findViewById(R.id.radio_R1);
         button2 = findViewById(R.id.radio_R2);
@@ -94,6 +102,7 @@ public class QuizActivity extends AppCompatActivity {
                     }
                 }else{
                     questionText.setText("PUNTUACION FINAL: Acertadas: "+nCorrect+"  Incorrectas: "+nWrong);
+                    timerOn = false;
                 }
 
             }
@@ -108,6 +117,30 @@ public class QuizActivity extends AppCompatActivity {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+        //Inicia el hilo que controla el cronometro
+        timerThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true){
+                    if(timerOn){
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        timerSecs++;
+                        timerUIHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                timerText.setText("Tiempo: "+timerSecs);
+                            }
+                        });
+                    }
+                }
+            }
+        });
+        timerOn = true;
+        timerThread.start();
     }
 
     public void createAudio(int audioId){
