@@ -19,11 +19,9 @@ import java.util.Stack;
 /*Se desarrollara toda la partida, mostrando las preguntas, respondiendolas y gestionando el fin de juego.*/
 
 //TODO:Arreglar peso videos y musica
-//TODO:Seleccionar numero especifico de preguntas
-//TODO:Mostrar errores y aciertos
-//TODO:Finalizar una partida
 //TODO:Resto de pantallas y transiciones (seleccionar set)
-//TODO:Estetica
+//TODO:Almacenamiento persistente
+//TODO:Estetica y cronometro
 //TODO:Desafios plata y oro
 //TODO:Cambiar xml a base de datos
 public class QuizActivity extends AppCompatActivity {
@@ -39,8 +37,9 @@ public class QuizActivity extends AppCompatActivity {
     protected RadioButton button4;
     protected Button buttonConfirm;
     protected MediaPlayer mediaPlayer;
+    protected TextView scoreText;
 
-    protected Stack<String> currentQuestionStack = new Stack<String>();
+    protected Stack<String> currentQuestionStack = new Stack<>();
 
     protected boolean audioInit = false;
 
@@ -49,6 +48,8 @@ public class QuizActivity extends AppCompatActivity {
 
     protected int currentCorrectId = -1;
     protected int currentAnswerId = -1;
+    protected int currentQuestionCount = 1;
+    protected int totalQuestions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,7 @@ public class QuizActivity extends AppCompatActivity {
         buttonAudio = findViewById(R.id.audioButton);
         image = findViewById(R.id.image);
         questionText = findViewById(R.id.questionText);
+        scoreText = findViewById(R.id.scoreText);
         questionRadio = findViewById(R.id.questionRadio);
         button1 = findViewById(R.id.radio_R1);
         button2 = findViewById(R.id.radio_R2);
@@ -81,18 +83,25 @@ public class QuizActivity extends AppCompatActivity {
                 if(audioInit){
                     mediaPlayer.release();
                 }
-                try {
-                    showRandomQuestion();
-                } catch (NoSuchFieldException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
+                if(!currentQuestionStack.isEmpty()){
+                    try {
+                        currentQuestionCount++;
+                        showRandomQuestion();
+                    } catch (NoSuchFieldException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    questionText.setText("PUNTUACION FINAL: Acertadas: "+nCorrect+"  Incorrectas: "+nWrong);
                 }
+
             }
         });
-        //Inicia primera pregunta
+        //Inicia el set de preguntas y muestra la primera
+        totalQuestions = 5;
         try {
-            initQuestions(R.array.questionsMovies);
+            initQuestions(R.array.questionsMovies, totalQuestions);
             showRandomQuestion();
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
@@ -130,16 +139,16 @@ public class QuizActivity extends AppCompatActivity {
         image.setVisibility(View.VISIBLE);
     }
 
-    public void initQuestions(int setId){
+    public void initQuestions(int setId, int numQuestions){
         String[] setQuestions = getResources().getStringArray(setId);
         for(int i = 0; i < setQuestions.length; i++){
             String tmp = setQuestions[i];
-            int rnd = (int) Math.round(Math.random()*(setQuestions.length - i) + i);
+            int rnd = (int) Math.round(Math.random()*((setQuestions.length - 1) - i) + i);
             setQuestions[i] = setQuestions[rnd];
             setQuestions[rnd] = tmp;
         }
-        for (String s : setQuestions) {
-            currentQuestionStack.push(s);
+        for (int i = 0; i < numQuestions; i++) {
+            currentQuestionStack.push(setQuestions[i]);
         }
     }
 
@@ -148,23 +157,18 @@ public class QuizActivity extends AppCompatActivity {
         videoView.setVisibility(View.GONE);
         buttonAudio.setVisibility(View.GONE);
         image.setVisibility(View.GONE);
-        /*
-        String[] setQuestions = getResources().getStringArray(setId);
 
-        int random = (int) Math.round(Math.random() * (setQuestions.length - 1));
-        String randomQuestion = setQuestions[random];
-        String[] parts = randomQuestion.split(";");*/
         String currentQuestion = currentQuestionStack.pop();
         String[] parts = currentQuestion.split(";");
 
         questionText.setText(parts[2]);
-        //.substring(1)
+
         String[] answerText = new String[4];
         for(int i = 0; i < 4; i++){
             answerText[i] = parts[i + 3];
             if (answerText[i].charAt(0) == '*'){
                 answerText[i] = answerText[i].substring(1);
-                currentAnswerId = i;
+                currentCorrectId = i;
             }
         }
         button1.setText(answerText[0]);
@@ -187,6 +191,7 @@ public class QuizActivity extends AppCompatActivity {
                 int imageId = imageField.getInt(imageField);
                 createImage(imageId);
         }
+        scoreText.setText("Pregunta "+currentQuestionCount+"/"+totalQuestions+"  Correctas: "+nCorrect+"  Incorrectas: "+nWrong);
     }
 
     public void radioListener(RadioGroup group, int checkedId){
@@ -195,6 +200,20 @@ public class QuizActivity extends AppCompatActivity {
 
     public void checkAnswerResult(){
         currentAnswerId = questionRadio.getCheckedRadioButtonId();
+        switch(questionRadio.getCheckedRadioButtonId()){
+            case R.id.radio_R1:
+                currentAnswerId = 0;
+                break;
+            case R.id.radio_R2:
+                currentAnswerId = 1;
+                break;
+            case R.id.radio_R3:
+                currentAnswerId = 2;
+                break;
+            case R.id.radio_R4:
+                currentAnswerId = 3;
+                break;
+        }
         if(currentAnswerId == currentCorrectId){
             nCorrect++;
         }else{
