@@ -6,8 +6,8 @@
         <item>q1_2;image;¿Cuál es la última película de Quentin Tarantino?;Kill Bill Vol 1;Django Unchained;*Once Upon A Time In Hollywood;The Hateful Eight</item>
         <item>q1_3;image;¿Cuál de estas películas no es de Pixar?;Up;Toy Story 4;Ratatouille;*How To Train Your Dragon</item>
         <item>q1_4;video;¿Quién es el director de esta película?;Hayao Miyazaki;*Mamoru Hosoda;Makoto Shinkai;Ei Aoki</item>
-        <item>q1_5;audio;¿A qué película pertenece este tema?;El Señor de los Anillos;*Star Wars;Star Trek;Alien</item>
-        <item>q1_6;video;¿Cuál de estos actores no ha interpretado al Joker?;Joaquin Phoenix;Jared Leto;Heath Ledger;*Ryan Reinolds</item>
+        <item>q1_5;video;¿Cuál de estos actores no ha interpretado al Joker?;Joaquin Phoenix;Jared Leto;Heath Ledger;*Ryan Reinolds</item>
+        <item>q1_6;audio;¿A qué película pertenece este tema?;El Señor de los Anillos;*Star Wars;Star Trek;Alien</item>
         <item>q1_7;image;¿Quién es este famoso actor?;*Marlon Brando;Sylvester Stallone;Christian Bale;Leonardo DiCaprio</item>
         <item>q1_8;audio;¿De qué famosa serie es este tema?;Cosas de Casa;Friends;*El Príncipe de Bel Air;Big Bang Theory</item>
         <item>q1_9;video;¿A qué serie pertenece este clip?;Community;The IT Crowd;Scrubs;*The Office</item>
@@ -27,7 +27,7 @@
         <item>q2_1;audio;¿A qué videojuego pertenece este icónico sonido?;Super Mario Bros;*Sonic the Hedgehog;The Legend of Zelda;Kirby</item>
         <item>q2_2;audio;¿A qué saga de videojuegos pertenece este tema?;*The Legend of Zelda;Final Fantasy;Dragon Quest;Persona</item>
         <item>q2_3;audio;¿En qué videojuego podemos oír esta frase?King of Fighters;Contra;Castlevania;*Metal Slug</item>
-        <item>q2_4;video;¿Cómo se llama este simpático enemigo?;Bowser;*Pyramid Head;Nemesis;Mr.X</item>
+        <item>q2_4;video;¿Cómo se llama este simpático enemigo?;Bowser;Pyramid Head;*Nemesis;Mr.X</item>
         <item>q2_5;video;¿Para qué consola se lanzó originalmente este juego?;*Dreamcast;GameCube;Xbox;PlayStation 2</item>
         <item>q2_6;video;¿Cuántos personajes controlables tiene este juego?;1;2;3;*4</item>
         <item>q2_7;video;¿Cómo se llama el protagonista de este juego?;Frog;Robo;*Crono;Luca</item>
@@ -40,7 +40,7 @@
         <item>q2_14;image;¿Qué personaje no pertenece a esta entrega de Final Fantasy?;Mog;Celes;Terra;*Squall</item>
         <item>q2_15;image;¿Cómo se llama este videojuego?;*Resident Evil 4;Silent Hill 2;Clock Tower;The Walking Dead</item>
         <item>q2_16;image;¿Cuál de estos juegos no en 2D?;Celeste;Katana Zero;*A Hat in Time;The Messenger</item>
-        <item>q2_17;image;¿Cómo se llama este personaje?;Terry Bogard;Ryu Hayabusa;Kazuma Kiryu;*Ryo Hakuzi</item>
+        <item>q2_17;image;¿Cómo se llama este personaje?;Terry Bogard;Ryu Hayabusa;Kazuma Kiryu;*Ryo Hazuki</item>
         <item>q2_18;image;¿Cuál de estos personajes es un evasor de impuestos?;*Yoshi;Kirby;Pikachu;Mario</item>
         <item>q2_19;image;¿En qué entrega de Fire Emblem aparece Takumi?;Fire Emblem Awakening;Fire Emblem Echoes;*Fire Emblem Fates; Fire Emblem Sacred Stones</item>
     </array>
@@ -58,12 +58,12 @@
         <item>q3_10;image;¿Cuál de estos grupos canta en español?;Arctic Monkeys;*Love of Lesbian;The Clash;The Strokes</item>
         <item>q3_11;video;¿Qué festival es el de este video?;Woodstock;*Live Aid;Rock In Rio;RockFest</item>
         <item>q3_12;audio;¿Qué grupo interpreta esta canción?;Sabaton;Powerwolf;*Avantasia;Rhapsody</item>
-        <item>q3_13;audio;¿De quién esta canción?;Rayden;El Canto del Loco;Nacha Pop;*Leiva</item>
+        <item>q3_13;audio;¿De quién es esta canción?;Rayden;El Canto del Loco;Nacha Pop;*Leiva</item>
         <item>q3_14;video;¿Qué canción están cantando estos animales?;*Chop Suey!;Bring Me To Life;Wish You Were Here;Numb</item>
         <item>q3_15;image;¿Cuál de estos grupos no es de Power Metal?;Sonata Artica;*Linkin Park;Blind Guardian;Freedom Call</item>
         <item>q3_16;video;¿De qué grupo es esta canción?;*Dream Theater;Masterplan;Iron Maiden;Metallica</item>
-        <item>q3_17;video;¿En qué canción esta basado este remix?;Johnny B.Goode;Jailhouse Rock;*Feel Good Inc;Smells Like Teen Spirit</item>
+        <item>q3_17;audio;¿En qué canción esta basado este remix?;Johnny B.Goode;Jailhouse Rock;*Feel Good Inc;Smells Like Teen Spirit</item>
         <item>q3_18;image;¿Por cuál de estas canciones obtuvo Eminem un récord Guiness?;*Rap God;Like Toy Soldiers;The Real Slim Shady;Without Me</item>
-        <item>q3_19;audio;¿Cuál de estos grupos es menos habitual de ver en el Spotify de un adolescente?;Evanescene;Linkin Park;My Chemical Romance;*Red Hot Chili Peppers</item>
+        <item>q3_19;image;¿Cuál de estos grupos es menos habitual de ver en el Spotify de un adolescente?;Evanescene;Linkin Park;My Chemical Romance;*Red Hot Chili Peppers</item>
     </array>
 </resources>
