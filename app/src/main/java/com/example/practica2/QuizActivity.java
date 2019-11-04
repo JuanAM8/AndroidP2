@@ -20,10 +20,8 @@ import java.lang.reflect.Field;
 import java.util.Stack;
 /*Se desarrollara toda la partida, mostrando las preguntas, respondiendolas y gestionando el fin de juego.*/
 
-//TODO:Arreglar peso videos y musica
 //TODO:Resto de pantallas y transiciones
 //TODO:Almacenamiento persistente (seleccionar set)
-//TODO:Estetica
 //TODO:Desafio oro
 //TODO:Cambiar xml a base de datos
 public class QuizActivity extends AppCompatActivity {
@@ -145,17 +143,29 @@ public class QuizActivity extends AppCompatActivity {
         timerThread.start();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(audioInit){
+            mediaPlayer.pause();
+            buttonAudio.setBackgroundResource(R.drawable.play_icon);
+        }
+    }
+
     public void createAudio(int audioId){
         audioInit = true;
         mediaPlayer = MediaPlayer.create(QuizActivity.this, audioId);
+        buttonAudio.setBackgroundResource(R.drawable.play_icon);
 
         buttonAudio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mediaPlayer.isPlaying()){
                     mediaPlayer.pause();
+                    buttonAudio.setBackgroundResource(R.drawable.play_icon);
                 }else {
                     mediaPlayer.start();
+                    buttonAudio.setBackgroundResource(R.drawable.pause_icon);
                 }
             }
         });

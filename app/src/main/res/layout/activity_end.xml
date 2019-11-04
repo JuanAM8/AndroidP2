@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#2D3E74"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
@@ -11,6 +12,7 @@
         android:layout_height="99dp"
         android:gravity="center"
         android:text="¡Enhorabuena!"
+        android:textColor="#FFFFFF"
         android:textSize="80px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.418"
@@ -25,6 +27,7 @@
         android:layout_height="184dp"
         android:gravity="center"
         android:text="Correctas: 0\nIncorrectas: 0\nTiempo: 0\nPuntuación final: c/(tot*time)*100"
+        android:textColor="#FFFFFF"
         android:textSize="60px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
