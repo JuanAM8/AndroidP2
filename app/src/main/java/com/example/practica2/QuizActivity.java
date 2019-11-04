@@ -1,5 +1,6 @@
 package com.example.practica2;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,10 +21,10 @@ import java.util.Stack;
 /*Se desarrollara toda la partida, mostrando las preguntas, respondiendolas y gestionando el fin de juego.*/
 
 //TODO:Arreglar peso videos y musica
-//TODO:Resto de pantallas y transiciones (seleccionar set)
-//TODO:Almacenamiento persistente
+//TODO:Resto de pantallas y transiciones
+//TODO:Almacenamiento persistente (seleccionar set)
 //TODO:Estetica
-//TODO:Desafios plata y oro
+//TODO:Desafio oro
 //TODO:Cambiar xml a base de datos
 public class QuizActivity extends AppCompatActivity {
 
@@ -101,16 +102,17 @@ public class QuizActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }else{
-                    questionText.setText("PUNTUACION FINAL: Acertadas: "+nCorrect+"  Incorrectas: "+nWrong);
                     timerOn = false;
+                    //timerThread.interrupt();
+                    goToResults();
                 }
 
             }
         });
         //Inicia el set de preguntas y muestra la primera
-        totalQuestions = 5;
+        totalQuestions = 20;
         try {
-            initQuestions(R.array.questionsMovies, totalQuestions);
+            initQuestions(R.array.questionsMusic, totalQuestions);
             showRandomQuestion();
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
@@ -252,5 +254,14 @@ public class QuizActivity extends AppCompatActivity {
         }else{
             nWrong++;
         }
+    }
+
+    public void goToResults(){
+        Intent i = new Intent(this, EndActivity.class);
+        i.putExtra("nCorrect", nCorrect);
+        i.putExtra("nWrong", nWrong);
+        i.putExtra("total", totalQuestions);
+        i.putExtra("time", timerSecs);
+        startActivity(i);
     }
 }
