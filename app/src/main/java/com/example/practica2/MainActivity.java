@@ -2,7 +2,9 @@ package com.example.practica2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -19,40 +21,65 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
+    protected Button quizButton;
+    protected Button settingsButton;
+    protected Button scoreButton;
+
+    protected boolean toastShown = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final Button testButton = findViewById(R.id.buttonStart);
-        testButton.setOnClickListener(new View.OnClickListener(){
+
+        quizButton = findViewById(R.id.buttonStart);
+        settingsButton = findViewById(R.id.buttonConfig);
+        scoreButton = findViewById(R.id.buttonRecords);
+
+        quizButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                launch(v);
+                launchGame(v);
+            }
+        });
+        settingsButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                launchSettings(v);
+            }
+        });
+        scoreButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                launchScores(v);
             }
         });
     }
 
-    public void launch(View view){
-        Intent i = new Intent(this, QuizActivity.class);
-        startActivity(i);
-    }
-/*
-    void testingReading() {
-        try {
-            File root = Environment.getExternalStorageDirectory();
-            FileInputStream testFile = new FileInputStream(root + "/questions.txt");
-            Toast.makeText(MainActivity.this,"Fichero leido", Toast.LENGTH_LONG).show();
-            DataInputStream content = new DataInputStream(testFile);
-            String input = content.readLine();
-            // Hacer algo con la cadena
-            Toast.makeText(MainActivity.this,input, Toast.LENGTH_LONG).show();
-            //fin.close();
-        } catch (FileNotFoundException e) {
-            Toast.makeText(MainActivity.this,"No fichero", Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        } catch (IOException e) {
-            Toast.makeText(MainActivity.this,"Otra cosa", Toast.LENGTH_LONG).show();
-            e.printStackTrace();
+    public void launchGame(View view){
+        if(checkUserName() || toastShown){
+            Intent i = new Intent(this, QuizActivity.class);
+            startActivity(i);
+        }else{
+            Toast.makeText(this, "No has introducido nombre de usuario. Puedes hacerlo en configuración o comenzar como anónimo.", Toast.LENGTH_SHORT).show();
+            toastShown = true;
         }
     }
-    */
+    public void launchSettings(View view){
+        Intent i = new Intent(this, SettingsActivity.class);
+        startActivity(i);
+    }
+
+    public void launchScores(View view){
+        Intent i = new Intent(this, ScoreActivity.class);
+        startActivity(i);
+    }
+
+    public boolean checkUserName(){
+        String name;
+        SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        name = preferences.getString("username", "");
+        if(name.equalsIgnoreCase("")){
+            return false;
+        }else{
+            return true;
+        }
+    }
 }

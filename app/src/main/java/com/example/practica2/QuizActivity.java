@@ -1,6 +1,8 @@
 package com.example.practica2;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,10 +22,9 @@ import java.lang.reflect.Field;
 import java.util.Stack;
 /*Se desarrollara toda la partida, mostrando las preguntas, respondiendolas y gestionando el fin de juego.*/
 
-//TODO:Resto de pantallas y transiciones
-//TODO:Almacenamiento persistente (seleccionar set)
+//TODO:Resto de pantallas y transiciones (puntuacion)
+//TODO:Almacenamiento persistente (puntuaciones y usuario)
 //TODO:Desafio oro
-//TODO:Cambiar xml a base de datos
 public class QuizActivity extends AppCompatActivity {
 
     protected VideoView videoView;
@@ -43,6 +44,7 @@ public class QuizActivity extends AppCompatActivity {
     protected Stack<String> currentQuestionStack = new Stack<>();
 
     protected boolean audioInit = false;
+    protected boolean audioPresent = false;
 
     protected int nCorrect = 0;
     protected int nWrong = 0;
@@ -90,6 +92,7 @@ public class QuizActivity extends AppCompatActivity {
                 if(audioInit){
                     mediaPlayer.release();
                 }
+                audioPresent = false;
                 if(!currentQuestionStack.isEmpty()){
                     try {
                         currentQuestionCount++;
@@ -108,9 +111,10 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
         //Inicia el set de preguntas y muestra la primera
-        totalQuestions = 20;
+        int modeId = getModePreference();
+        totalQuestions = getNumberPreference();
         try {
-            initQuestions(R.array.questionsMusic, totalQuestions);
+            initQuestions(modeId, totalQuestions);
             showRandomQuestion();
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
@@ -146,7 +150,7 @@ public class QuizActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if(audioInit){
+        if(audioPresent && audioInit){
             mediaPlayer.pause();
             buttonAudio.setBackgroundResource(R.drawable.play_icon);
         }
@@ -154,6 +158,7 @@ public class QuizActivity extends AppCompatActivity {
 
     public void createAudio(int audioId){
         audioInit = true;
+        audioPresent = true;
         mediaPlayer = MediaPlayer.create(QuizActivity.this, audioId);
         buttonAudio.setBackgroundResource(R.drawable.play_icon);
 
@@ -273,5 +278,23 @@ public class QuizActivity extends AppCompatActivity {
         i.putExtra("total", totalQuestions);
         i.putExtra("time", timerSecs);
         startActivity(i);
+    }
+    public int getModePreference(){
+        int mode;
+        SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        mode = preferences.getInt("mode", -1);
+        if(mode == -1){
+            mode = R.array.questionsMovies;
+        }
+        return mode;
+    }
+    public int getNumberPreference(){
+        int number;
+        SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        number = preferences.getInt("number", -1);
+        if(number == -1){
+            number = 5;
+        }
+        return number;
     }
 }

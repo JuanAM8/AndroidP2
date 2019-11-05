@@ -1,6 +1,8 @@
 package com.example.practica2;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -42,10 +44,36 @@ public class EndActivity extends AppCompatActivity {
         if(score < 0) score = 0;
 
         resultsText.setText("Correctas: "+nCorrect+"\nIncorrectas: "+nWrong+"\nTiempo: "+time+"\nPuntuación final: "+score);
+        saveScore(score);
     }
 
     public void goBackToTitle(){
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
+    }
+
+    public void saveScore(int currentScore) {
+        SharedPreferences preferences = getSharedPreferences("scores", Context.MODE_PRIVATE);
+        int[] scores = new int[5];
+        for (int i = 0; i < 5; i++) {
+            scores[i] = preferences.getInt("score" + i, -1);
+        }
+        for (int i = 0; i < 5; i++) {
+            if(currentScore > scores[i]){
+                int aux = scores[i];
+                scores[i] = currentScore;
+                for(int j = i+1;j < 5; j++){
+                    int aux2 = scores[j];
+                    scores[j] = aux;
+                    aux = aux2;
+                }
+                break;
+            }
+        }
+        SharedPreferences.Editor editor = preferences.edit();
+        for(int i = 0; i < 5; i++){
+            editor.putInt("score"+i, scores[i]);
+        }
+        editor.apply();
     }
 }

@@ -66,4 +66,17 @@
         <item>q3_18;image;¿Por cuál de estas canciones obtuvo Eminem un récord Guiness?;*Rap God;Like Toy Soldiers;The Real Slim Shady;Without Me</item>
         <item>q3_19;image;¿Cuál de estos grupos es menos habitual de ver en el Spotify de un adolescente?;Evanescene;Linkin Park;My Chemical Romance;*Red Hot Chili Peppers</item>
     </array>
+
+    <string-array name="themes_array">
+        <item>Cine y series</item>
+        <item>Videojuegos</item>
+        <item>Música</item>
+    </string-array>
+
+    <string-array name="numbers_array">
+        <item>5 preguntas</item>
+        <item>10 preguntas</item>
+        <item>15 preguntas</item>
+        <item>20 preguntas</item>
+    </string-array>
 </resources>
