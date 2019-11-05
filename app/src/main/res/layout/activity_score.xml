@@ -11,7 +11,7 @@
         android:layout_width="282dp"
         android:layout_height="99dp"
         android:gravity="center"
-        android:text="Score"
+        android:text="Mejores Puntuaciones"
         android:textColor="#FFFFFF"
         android:textSize="80px"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,22 +21,112 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.174" />
 
-    <TextView
-        android:id="@+id/resultsText"
-        android:layout_width="377dp"
-        android:layout_height="184dp"
-        android:gravity="center"
-        android:text="Correctas: 0\nIncorrectas: 0\nTiempo: 0\nPuntuación final: c/(tot*time)*100"
-        android:textColor="#FFFFFF"
-        android:textSize="60px"
+    <TableLayout
+        android:layout_width="277dp"
+        android:layout_height="289dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.44"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.413" />
+        app:layout_constraintVertical_bias="0.613">
+        <TableRow>
+
+            <TextView
+                android:padding="10dp"
+                android:text="NOMBRES"
+                android:textColor="#FFFF"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:gravity="right"
+                android:padding="10dp"
+                android:text="PUNTUACIONES"
+                android:textColor="#FFFF"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/name1"
+                android:text="nombre1"
+                android:textColor="#FFFF"
+                android:textSize="20dp"
+                android:padding="10dp"/>
+            <TextView
+                android:id="@+id/score1"
+                android:text="0"
+                android:textColor="#FFFF"
+                android:textSize="20dp"
+                android:padding="10dp"
+                android:gravity="right"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/name2"
+                android:text="nombre2"
+                android:textColor="#FFFF"
+                android:textSize="20dp"
+                android:padding="10dp"/>
+            <TextView
+                android:id="@+id/score2"
+                android:text="0"
+                android:textColor="#FFFF"
+                android:textSize="20dp"
+                android:padding="10dp"
+                android:gravity="right"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/name3"
+                android:text="nombre3"
+                android:textColor="#FFFF"
+                android:textSize="20dp"
+                android:padding="10dp"/>
+            <TextView
+                android:id="@+id/score3"
+                android:text="0"
+                android:textColor="#FFFF"
+                android:textSize="20dp"
+                android:padding="10dp"
+                android:gravity="right"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/name4"
+                android:text="nombre4"
+                android:textColor="#FFFF"
+                android:textSize="20dp"
+                android:padding="10dp"/>
+            <TextView
+                android:id="@+id/score4"
+                android:text="0"
+                android:textColor="#FFFF"
+                android:textSize="20dp"
+                android:padding="10dp"
+                android:gravity="right"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/name5"
+                android:text="nombre5"
+                android:textColor="#FFFF"
+                android:textSize="20dp"
+                android:padding="10dp"/>
+            <TextView
+                android:id="@+id/score5"
+                android:text="0"
+                android:textColor="#FFFF"
+                android:textSize="20dp"
+                android:padding="10dp"
+                android:gravity="right"/>
+        </TableRow>
+
+    </TableLayout>
 
     <Button
-        android:id="@+id/buttonContinue"
+        android:id="@+id/buttonBack"
         android:layout_width="261dp"
         android:layout_height="51dp"
         android:layout_gravity="center"
@@ -46,7 +136,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.632" />
+        app:layout_constraintVertical_bias="0.922" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

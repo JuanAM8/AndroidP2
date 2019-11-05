@@ -111,7 +111,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
     public void saveUserName(){
         String name = nameText.getText().toString();
-        if(name != "Nombre de Usuario"){
+        if(!name.equalsIgnoreCase("Nombre de Usuario")){
             SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("username", name);
