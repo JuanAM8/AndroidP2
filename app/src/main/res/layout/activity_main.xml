@@ -11,14 +11,13 @@
         android:id="@+id/buttonConfig"
         android:layout_width="500px"
         android:layout_height="100px"
-        android:layout_marginBottom="124dp"
         android:text="Configuracion"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.542"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.975" />
+        app:layout_constraintVertical_bias="0.786" />
 
     <Button
         android:id="@+id/buttonStart"
@@ -36,14 +35,13 @@
         android:id="@+id/buttonRecords"
         android:layout_width="207dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="32dp"
         android:text="Mejores puntuaciones"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.544"
+        app:layout_constraintHorizontal_bias="0.549"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.942" />
+        app:layout_constraintVertical_bias="0.891" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/image"
