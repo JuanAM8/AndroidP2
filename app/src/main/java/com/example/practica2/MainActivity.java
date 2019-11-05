@@ -32,10 +32,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Inicializacion de variables del layout
         quizButton = findViewById(R.id.buttonStart);
         settingsButton = findViewById(R.id.buttonConfig);
         scoreButton = findViewById(R.id.buttonRecords);
 
+        //Definicion de Listeners de los botones que envian a la actividad correspondiente
         quizButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 launchGame(v);
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //Muestra un mensaje si no hay un nombre de usuario guardado y despues permite empezar anonimamente
     public void launchGame(View view){
         if(checkUserName() || toastShown){
             Intent i = new Intent(this, QuizActivity.class);
@@ -72,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    //Comprueba si hay un usuario guardado en preferencias
     public boolean checkUserName(){
         String name;
         SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);

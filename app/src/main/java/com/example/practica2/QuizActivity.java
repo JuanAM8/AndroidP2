@@ -27,6 +27,7 @@ import java.util.Stack;
 //TODO:Desafio oro
 public class QuizActivity extends AppCompatActivity {
 
+    //Variables layout
     protected VideoView videoView;
     protected Button buttonAudio;
     protected ImageView image;
@@ -41,11 +42,14 @@ public class QuizActivity extends AppCompatActivity {
     protected TextView scoreText;
     protected TextView timerText;
 
+    //Pila de preguntas
     protected Stack<String> currentQuestionStack = new Stack<>();
 
+    //Variables de reproduccion de audio
     protected boolean audioInit = false;
     protected boolean audioPresent = false;
 
+    //Variables del numero de preguntas y los aciertos/fallos
     protected int nCorrect = 0;
     protected int nWrong = 0;
 
@@ -54,6 +58,7 @@ public class QuizActivity extends AppCompatActivity {
     protected int currentQuestionCount = 1;
     protected int totalQuestions;
 
+    //Elementos del timer y su hilo
     protected Thread timerThread;
     protected boolean timerOn;
     Handler timerUIHandler = new Handler();
@@ -63,6 +68,7 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
         //Inicializacion de elementos del layout
         videoView = findViewById(R.id.video);
         buttonAudio = findViewById(R.id.audioButton);
@@ -93,6 +99,7 @@ public class QuizActivity extends AppCompatActivity {
                     mediaPlayer.release();
                 }
                 audioPresent = false;
+                //Si quedan preguntas muestra la siguiente y si no para el timer y va a resultados
                 if(!currentQuestionStack.isEmpty()){
                     try {
                         currentQuestionCount++;
@@ -104,13 +111,13 @@ public class QuizActivity extends AppCompatActivity {
                     }
                 }else{
                     timerOn = false;
-                    //timerThread.interrupt();
                     goToResults();
                 }
 
             }
         });
         //Inicia el set de preguntas y muestra la primera
+        //El set de preguntas se decide con lo que este guardado en sharedpreferences
         int modeId = getModePreference();
         totalQuestions = getNumberPreference();
         try {
@@ -150,18 +157,21 @@ public class QuizActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        //Pausa el audio si se pausa la actividad
         if(audioPresent && audioInit){
             mediaPlayer.pause();
             buttonAudio.setBackgroundResource(R.drawable.play_icon);
         }
     }
 
+    //Crea un reproductor de audio con el correspondiente al id
     public void createAudio(int audioId){
         audioInit = true;
         audioPresent = true;
         mediaPlayer = MediaPlayer.create(QuizActivity.this, audioId);
         buttonAudio.setBackgroundResource(R.drawable.play_icon);
 
+        //Listener que pausa/reproduce el audio y cambia la imagen del boton
         buttonAudio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -177,6 +187,7 @@ public class QuizActivity extends AppCompatActivity {
         buttonAudio.setVisibility(View.VISIBLE);
     }
 
+    //Muestra el reproductor de video y le asocia el correspondiente al id
     public void createVideo(int videoId){
         videoView.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+ videoId));
         videoView.setMediaController(new MediaController(this));
@@ -184,11 +195,14 @@ public class QuizActivity extends AppCompatActivity {
         videoView.setVisibility(View.VISIBLE);
     }
 
+    //Muestra la imagen y la cambia a la correspondiente al id
     public void createImage(int imageId){
         image.setImageResource(imageId);
         image.setVisibility(View.VISIBLE);
     }
 
+    //Recoje las preguntas y respuestas del grupo correspondiente del xml y las randomiza
+    //antes de guardar el numero elegido en la pila
     public void initQuestions(int setId, int numQuestions){
         String[] setQuestions = getResources().getStringArray(setId);
         for(int i = 0; i < setQuestions.length; i++){
@@ -202,17 +216,22 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
+    //Muestra la siguiente pregunta, sus respuestas y su elemento multimedia asociado
     public void showRandomQuestion() throws NoSuchFieldException, IllegalAccessException {
+        //Oculta todos los botones
         buttonConfirm.setVisibility(View.GONE);
         videoView.setVisibility(View.GONE);
         buttonAudio.setVisibility(View.GONE);
         image.setVisibility(View.GONE);
 
+        //Saca una pregunta de la pila y separa sus elementos
         String currentQuestion = currentQuestionStack.pop();
         String[] parts = currentQuestion.split(";");
 
+        //Muestra la pregunta
         questionText.setText(parts[2]);
 
+        //Comprueba y guarda la posicion de la respuesta correcta segun donde este el *
         String[] answerText = new String[4];
         for(int i = 0; i < 4; i++){
             answerText[i] = parts[i + 3];
@@ -221,10 +240,12 @@ public class QuizActivity extends AppCompatActivity {
                 currentCorrectId = i;
             }
         }
+        //Muestra las respuestas en los radio buttons
         button1.setText(answerText[0]);
         button2.setText(answerText[1]);
         button3.setText(answerText[2]);
         button4.setText(answerText[3]);
+        //Comprueba el tipo de multimedia y lo muestra segun el id de la pregunta
         switch (parts[1]){
             case "video":
                 Field videoField = R.raw.class.getDeclaredField(parts[0]);
@@ -241,6 +262,7 @@ public class QuizActivity extends AppCompatActivity {
                 int imageId = imageField.getInt(imageField);
                 createImage(imageId);
         }
+        //Muestra la puntuacion actual
         scoreText.setText("Pregunta "+currentQuestionCount+"/"+totalQuestions+"  Correctas: "+nCorrect+"  Incorrectas: "+nWrong);
     }
 
@@ -248,6 +270,7 @@ public class QuizActivity extends AppCompatActivity {
         buttonConfirm.setVisibility(View.VISIBLE);
     }
 
+    //Comprueba si la respuesta es correcta y guarda el resultado
     public void checkAnswerResult(){
         currentAnswerId = questionRadio.getCheckedRadioButtonId();
         switch(questionRadio.getCheckedRadioButtonId()){
@@ -271,14 +294,16 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
+    //Inicia la actividad de resultados y envia el tiempo, los aciertos y los fallos
     public void goToResults(){
         Intent i = new Intent(this, EndActivity.class);
         i.putExtra("nCorrect", nCorrect);
         i.putExtra("nWrong", nWrong);
-        i.putExtra("total", totalQuestions);
         i.putExtra("time", timerSecs);
         startActivity(i);
     }
+
+    //Recoge el modo de sharedpreferences
     public int getModePreference(){
         int mode;
         SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
@@ -288,6 +313,8 @@ public class QuizActivity extends AppCompatActivity {
         }
         return mode;
     }
+
+    //Recoge el numero de preguntas de sharedpreferences
     public int getNumberPreference(){
         int number;
         SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);

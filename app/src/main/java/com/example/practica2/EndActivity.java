@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-/*Se mostraran las mejores puntuaciones y un boton de retroceso que cierre la actividad.*/
+/*Se muestra el resultado final del quiz*/
 public class EndActivity extends AppCompatActivity {
 
     Button buttonContinue;
@@ -37,7 +37,6 @@ public class EndActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         int nCorrect = bundle.getInt("nCorrect");
         int nWrong = bundle.getInt("nWrong");
-        int total = bundle.getInt("total");
         int time = bundle.getInt("time");
 
         int score = nCorrect*100 - time;
@@ -52,6 +51,8 @@ public class EndActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    //Recoge las mejores puntuaciones de sharedpreferences e introduce la nueva puntuacion
+    //junto con el nombre de usuario en caso de entrar en el ranking
     public void saveScore(int currentScore, String currentUser){
         SharedPreferences preferences = getSharedPreferences("scores", Context.MODE_PRIVATE);
         int[] scores = new int[5];
@@ -85,9 +86,11 @@ public class EndActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    //Recoge el nombre de usuario actual en sharedpreferences
     public String getUsername(){
         SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
         String name = preferences.getString("username", "");
+        //Si no hay nombre guardado devuelve anonimo
         if(!name.equalsIgnoreCase("")){
             return name;
         }else{

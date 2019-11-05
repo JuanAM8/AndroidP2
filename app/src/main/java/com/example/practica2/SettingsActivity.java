@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-/*Se mostraran las mejores puntuaciones y un boton de retroceso que cierre la actividad.*/
+/*Pantalla de configuracion*/
 public class SettingsActivity extends AppCompatActivity {
 
     Button backButton;
@@ -29,11 +29,13 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        //Inicializacion de variables del layout
         backButton = findViewById(R.id.buttonBack);
         themeSpinner = findViewById(R.id.themeSpinner);
         numberSpinner = findViewById(R.id.numberSpinner);
         nameText = findViewById(R.id.nameText);
 
+        //Listeners de boton y spinners
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,6 +45,7 @@ public class SettingsActivity extends AppCompatActivity {
         themeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //Se escoge el tema de las preguntas segun el spinner
                 int modeId;
                 switch(position){
                     case 0:
@@ -69,6 +72,7 @@ public class SettingsActivity extends AppCompatActivity {
         numberSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //Se escoge el numero de preguntas segun el spinner
                 int number;
                 switch(position){
                     case 0:
@@ -103,12 +107,15 @@ public class SettingsActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    //Guarda el tema y el numero de preguntas como preferencias
     public void savePreference(String key, int value){
         SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt(key, value);
         editor.apply();
     }
+
+    //Guarda el nombre de usuario que haya en el texto a no ser que no cambie el que hay por defecto
     public void saveUserName(){
         String name = nameText.getText().toString();
         if(!name.equalsIgnoreCase("Nombre de Usuario")){

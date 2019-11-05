@@ -66,6 +66,7 @@ public class ScoreActivity extends AppCompatActivity {
             }
         });
     }
+
     public void goToMain(){
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
